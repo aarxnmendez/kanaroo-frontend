@@ -15,7 +15,7 @@ function Preview() {
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "radial-gradient(ellipse 150% 50% at 50% 100%, var(--background) 40%, transparent 100%)",
+              "radial-gradient(ellipse 150% 50% at 50% 90%, var(--background) 40%, transparent 100%)",
             zIndex: 10,
           }}
         />
