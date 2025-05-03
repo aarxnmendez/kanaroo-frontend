@@ -8,7 +8,7 @@ function Preview() {
       <section
         id="preview-section"
         aria-label="Product preview showcase"
-        className="relative flex flex-col items-center justify-center w-4/5 lg:w-3/4 py-4 md:py-8 lg:py-16"
+        className="relative flex flex-col items-center justify-center w-9/10 lg:w-3/4 py-4 md:py-8 lg:py-16"
       >
         {/* Background gradient overlay */}
         <div
