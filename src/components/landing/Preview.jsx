@@ -10,12 +10,12 @@ function Preview() {
         aria-label="Product preview showcase"
         className="relative flex flex-col items-center justify-center w-9/10 lg:w-3/4 py-4 md:py-8 lg:py-16"
       >
-        {/* Background gradient overlay */}
+        {/* Background radial gradient overlay */}
         <div
           className="absolute inset-0 pointer-events-none"
           style={{
             background:
-              "linear-gradient(to top, var(--background) 30%, transparent 50%)",
+              "radial-gradient(ellipse 150% 50% at 50% 100%, var(--background) 40%, transparent 100%)",
             zIndex: 10,
           }}
         />
