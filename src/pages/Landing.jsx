@@ -2,6 +2,7 @@ import MainLayout from "@/layouts/MainLayout";
 
 import Hero from "@/components/landing/Hero";
 import Preview from "@/components/landing/Preview";
+import Benefits from "@/components/landing/Benefits";
 
 function Landing() {
   return (
@@ -9,6 +10,7 @@ function Landing() {
       <MainLayout>
         <Hero />
         <Preview />
+        <Benefits />
       </MainLayout>
     </>
   );
