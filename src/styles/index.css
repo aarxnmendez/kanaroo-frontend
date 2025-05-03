@@ -118,10 +118,16 @@
   --popover-foreground: oklch(0.95 0 0); /* #F3F3F3 */
   --primary: oklch(0.55 0.19 263); /* #3B82F6 - Keep color but adjust */
   --primary-foreground: oklch(0.18 0 0); /* #1F1F1F */
-  --secondary: oklch(0.27 0.02 250); /* Darker secondary */
-  --secondary-foreground: oklch(0.95 0 0); /* #F3F3F3 */
-  --muted: oklch(0.4 0.02 250); /* Dark version of muted */
-  --muted-foreground: oklch(0.8 0 0); /* #CCCCCC */
+  --secondary: oklch(
+    0.8 0 0
+  ); /* #CCCCCC - More visible but less bright than foreground */
+  --secondary-foreground: oklch(0.18 0 0); /* #1F1F1F */
+  --muted: oklch(
+    0.55 0.02 250
+  ); /* Lighter version of muted for better visibility */
+  --muted-foreground: oklch(
+    0.75 0 0
+  ); /* #BFBFBF - Slightly darker than secondary */
   --accent: oklch(0.33 0.03 250); /* Dark version of accent */
   --accent-foreground: oklch(0.95 0 0); /* #F3F3F3 */
   --destructive: oklch(0.65 0.25 25); /* Brighter version for dark mode */

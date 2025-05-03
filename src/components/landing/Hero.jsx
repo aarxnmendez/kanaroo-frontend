@@ -32,7 +32,7 @@ function Hero() {
         </BlurFade>
 
         <BlurFade duration={0.6} delay={0.2} offset={10}>
-          <p className="text-xs sm:text-sm md:text-base text-muted-foreground max-w-xs sm:max-w-sm md:max-w-md mb-6 md:mb-8 mx-auto">
+          <p className="text-xs sm:text-sm md:text-base text-secondary max-w-xs sm:max-w-sm md:max-w-md mb-6 md:mb-8 mx-auto">
             Un espacio diseñado para que avances sin ruido.
           </p>
         </BlurFade>
