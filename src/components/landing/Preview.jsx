@@ -27,7 +27,7 @@ function Preview() {
             window.open("https://placehold.co/1920x1080", "_blank")
           }
         >
-          <BlurFade duration={0.6} delay={0.4} offset={10}>
+          <BlurFade inView="true" duration={0.6} delay={0.4} offset={10}>
             <img
               src="https://placehold.co/1920x1080"
               alt="Platform interface preview showing workspace organization features"

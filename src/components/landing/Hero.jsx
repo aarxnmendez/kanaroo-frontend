@@ -24,20 +24,20 @@ function Hero() {
         />
       </div>
       <div className="relative z-10 text-center w-full mx-auto">
-        <BlurFade duration={0.6} delay={0.1} offset={10}>
+        <BlurFade inView="true" duration={0.6} delay={0.1} offset={10}>
           <h1 className="text-4xl md:text-6xl lg:text-8xl font-black lg:font-extrabold text-foreground mb-3 md:mb-4">
             Ordena. Crea. <br />
             Salta más alto.
           </h1>
         </BlurFade>
 
-        <BlurFade duration={0.6} delay={0.2} offset={10}>
+        <BlurFade inView="true" duration={0.6} delay={0.2} offset={10}>
           <p className="text-xs sm:text-sm md:text-base text-secondary max-w-xs sm:max-w-sm md:max-w-md mb-6 md:mb-8 mx-auto">
             Un espacio diseñado para que avances sin ruido.
           </p>
         </BlurFade>
 
-        <BlurFade duration={0.6} delay={0.3} offset={10}>
+        <BlurFade inView="true" duration={0.6} delay={0.3} offset={10}>
           <div className="flex gap-3 md:gap-4 justify-center">
             <Button
               variant="default"
