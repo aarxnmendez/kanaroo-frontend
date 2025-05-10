@@ -19,12 +19,46 @@ export const wrap = (min, max, v) => {
 
 function ParallaxText({ children, baseVelocity = 100, ...props }) {
   const baseX = useMotionValue(0);
-  const { scrollY } = useScroll();
+  const scrollY = useMotionValue(0);
+  const scrollYProgress = useMotionValue(0);
+  const { scrollY: nativeScrollY } = useScroll();
   const scrollVelocity = useVelocity(scrollY);
   const smoothVelocity = useSpring(scrollVelocity, {
     damping: 50,
     stiffness: 400,
   });
+
+  // Use Lenis scroll values if available
+  useEffect(() => {
+    if (window.lenis) {
+      const updateScrollValues = (e) => {
+        const currentY = e.scroll;
+        scrollY.set(currentY);
+
+        // Calculate progress between 0 and 1
+        const maxScroll =
+          document.documentElement.scrollHeight - window.innerHeight;
+        const progress = maxScroll > 0 ? currentY / maxScroll : 0;
+        scrollYProgress.set(progress);
+      };
+
+      window.lenis.on("scroll", updateScrollValues);
+
+      return () => {
+        window.lenis.off("scroll", updateScrollValues);
+      };
+    }
+  }, [scrollY, scrollYProgress]);
+
+  // Fallback to native scroll if Lenis is not available
+  useEffect(() => {
+    if (!window.lenis) {
+      const unsubscribe = nativeScrollY.on("change", (value) => {
+        scrollY.set(value);
+      });
+      return () => unsubscribe();
+    }
+  }, [nativeScrollY, scrollY]);
 
   const velocityFactor = useTransform(smoothVelocity, [0, 1000], [0, 5], {
     clamp: false,
