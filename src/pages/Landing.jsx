@@ -1,3 +1,5 @@
+import { useEffect } from "react";
+import { useLenis } from "@/hooks/useLenis";
 import MainLayout from "@/layouts/MainLayout";
 
 import Hero from "@/components/landing/Hero";
@@ -6,6 +8,22 @@ import Benefits from "@/components/landing/Benefits";
 import { VelocityScroll } from "@/components/magicui/scroll-based-velocity";
 
 function Landing() {
+  // Initialize Lenis for smooth scroll on this page only
+  const lenis = useLenis();
+
+  useEffect(() => {
+    if (lenis) {
+      window.lenis = lenis; // Optional: make it globally available if other components on this page need it
+    }
+    // Cleanup function to destroy Lenis instance when component unmounts
+    return () => {
+      if (lenis) {
+        lenis.destroy();
+        window.lenis = null; // Optional: clear global instance
+      }
+    };
+  }, [lenis]);
+
   return (
     <>
       <MainLayout>
