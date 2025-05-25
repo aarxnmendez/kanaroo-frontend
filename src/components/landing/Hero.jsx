@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 import { Button } from "@/components/ui/button";
 import { Particles } from "@/components/magicui/particles";
 import { BlurFade } from "@/components/magicui/blur-fade";
