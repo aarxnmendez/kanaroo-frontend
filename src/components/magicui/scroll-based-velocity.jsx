@@ -10,7 +10,7 @@ import {
 } from "motion/react";
 import React, { useEffect, useRef, useState } from "react";
 
-import { cn } from "@/lib/utils";
+import { cn } from "@/lib/utils/utils";
 
 export const wrap = (min, max, v) => {
   const rangeSize = max - min;
