@@ -1,6 +1,8 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@config "../../tailwind.config.js";
+
 @font-face {
   font-family: "Inter";
   src: url("/fonts/inter.woff2") format("woff2");
@@ -39,6 +41,10 @@
   --color-popover-foreground: var(--popover-foreground);
   --color-primary: var(--primary);
   --color-primary-foreground: var(--primary-foreground);
+  --color-primary-light: var(--primary-light);
+  --color-primary-lighter: var(--primary-lighter);
+  --color-primary-dark: var(--primary-dark);
+  --color-primary-darker: var(--primary-darker);
   --color-secondary: var(--secondary);
   --color-secondary-foreground: var(--secondary-foreground);
   --color-muted: var(--muted);
@@ -67,6 +73,7 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
+
 }
 
 :root {
@@ -79,6 +86,10 @@
   --popover-foreground: oklch(0.18 0 0); /* #1F1F1F */
   --primary: oklch(0.55 0.19 263); /* #3B82F6 - Primary blue */
   --primary-foreground: oklch(1 0 0); /* #FFFFFF - Text on primary */
+  --primary-light: oklch(0.65 0.19 263);
+  --primary-lighter: oklch(0.75 0.19 263);
+  --primary-dark: oklch(0.45 0.19 263);
+  --primary-darker: oklch(0.35 0.19 263);
   --secondary: oklch(0.36 0.05 250); /* #4B5563 - Body text primary */
   --secondary-foreground: oklch(1 0 0); /* #FFFFFF */
   --muted: oklch(0.67 0.02 250); /* #9CA3AF - Body text secondary (reverted for light bg) */
@@ -132,6 +143,10 @@
   --popover-foreground: oklch(0.95 0 0); /* #F3F3F3 */
   --primary: oklch(0.55 0.19 263); /* #3B82F6 - Keep color but adjust */
   --primary-foreground: oklch(0.18 0 0); /* #1F1F1F */
+  --primary-light: oklch(0.65 0.19 263);
+  --primary-lighter: oklch(0.75 0.19 263);
+  --primary-dark: oklch(0.45 0.19 263);
+  --primary-darker: oklch(0.35 0.19 263);
   --secondary: oklch(
     0.8 0 0
   ); /* #CCCCCC - More visible but less bright than foreground */
