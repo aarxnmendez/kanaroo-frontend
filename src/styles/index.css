@@ -71,7 +71,7 @@
 
 :root {
   --radius: 0.625rem;
-  --background: oklch(0.964 0.002 100); /* #f6f6f1 - New main background (Off-white) */
+  --background: rgb(246, 246, 241); /* #f6f6f1 - New main background (Off-white) */
   --foreground: oklch(0.18 0 0); /* #1F1F1F - Main text */
   --card: oklch(1 0 0); /* #FFFFFF */
   --card-foreground: oklch(0.18 0 0); /* #1F1F1F */
