@@ -73,16 +73,19 @@
   --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
   --color-sidebar-border: var(--sidebar-border);
   --color-sidebar-ring: var(--sidebar-ring);
-
 }
 
 :root {
   --radius: 0.625rem;
-  --background: rgb(246, 246, 241); /* #f6f6f1 - New main background (Off-white) */
+  --background: rgb(
+    246,
+    246,
+    241
+  ); /* #f6f6f1 - New main background (Off-white) */
   --foreground: oklch(0.18 0 0); /* #1F1F1F - Main text */
   --card: oklch(1 0 0); /* #FFFFFF */
   --card-foreground: oklch(0.18 0 0); /* #1F1F1F */
-  --popover: oklch(1 0 0); /* #FFFFFF */
+  --popover: var(--background); /* Use main background for popovers */
   --popover-foreground: oklch(0.18 0 0); /* #1F1F1F */
   --primary: oklch(0.55 0.19 263); /* #3B82F6 - Primary blue */
   --primary-foreground: oklch(1 0 0); /* #FFFFFF - Text on primary */
@@ -92,9 +95,13 @@
   --primary-darker: oklch(0.35 0.19 263);
   --secondary: oklch(0.36 0.05 250); /* #4B5563 - Body text primary */
   --secondary-foreground: oklch(1 0 0); /* #FFFFFF */
-  --muted: oklch(0.67 0.02 250); /* #9CA3AF - Body text secondary (reverted for light bg) */
-  --muted-foreground: oklch(0.45 0 0); /* Placeholder color (reverted for light bg) */
-  --accent: oklch(0.82 0.03 250); /* #D1D5DB - Default input */
+  --muted: oklch(
+    0.67 0.02 250
+  ); /* #9CA3AF - Body text secondary (reverted for light bg) */
+  --muted-foreground: oklch(
+    0.45 0 0
+  ); /* Placeholder color (reverted for light bg) */
+  --accent: oklch(0.95 0 0); /* approx #F2F2F2 - Very light gray accent */
   --accent-foreground: oklch(0.25 0 0); /* #404040 */
   --destructive: oklch(0.56 0.25 25); /* #EF4444 - Error */
   --destructive-foreground: oklch(1 0 0); /* #FFFFFF */
@@ -139,7 +146,7 @@
   --foreground: oklch(0.95 0 0); /* #F3F3F3 */
   --card: oklch(0.22 0 0); /* #303030 */
   --card-foreground: oklch(0.95 0 0); /* #F3F3F3 */
-  --popover: oklch(0.22 0 0); /* #303030 */
+  --popover: var(--background); /* Use main background for popovers */
   --popover-foreground: oklch(0.95 0 0); /* #F3F3F3 */
   --primary: oklch(0.55 0.19 263); /* #3B82F6 - Keep color but adjust */
   --primary-foreground: oklch(0.18 0 0); /* #1F1F1F */
@@ -157,7 +164,9 @@
   --muted-foreground: oklch(
     0.75 0 0
   ); /* #BFBFBF - Slightly darker than secondary */
-  --accent: oklch(0.33 0.03 250); /* Dark version of accent */
+  --accent: oklch(
+    0.2 0 0
+  ); /* approx #333333 - Very dark neutral gray accent, very close to bg */
   --accent-foreground: oklch(0.95 0 0); /* #F3F3F3 */
   --destructive: oklch(0.65 0.25 25); /* Brighter version for dark mode */
   --destructive-foreground: oklch(0.18 0 0); /* #1F1F1F */
