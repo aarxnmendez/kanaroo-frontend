@@ -4,7 +4,7 @@ import { NavigationMobile } from "@/components/landing/NavigationMobile";
 
 function Navbar() {
   return (
-    <header className="fixed top-0 left-0 z-10 w-full flex flex-col items-center justify-stretch pt-4 pb-0 px-4 md:pt-9 md:pb-0 md:px-16 lg:pt-5 lg:pb-0 lg:px-10 2xl:pt-9 2xl:pb-0 2xl:px-16">
+    <header className="fixed top-0 left-0 z-10 w-full flex flex-col items-center justify-stretch pt-4 pb-0 px-4 md:pt-9 md:pb-0 md:px-16 lg:pt-5 lg:pb-0 lg:px-10 2xl:pt-9 2xl:pb-0 2xl:px-16 bg-background">
       <div className="flex h-14 p-1 max-w-7xl relative w-full 2xl:h-12 2xl:justify-start hover:shadow-lg dark:hover:shadow-[0_10px_15px_-3px_rgba(255,255,255,0.1),_0_4px_6px_-4px_rgba(255,255,255,0.1)] transition-shadow duration-300 rounded-xl">
         <div className="h-full flex items-center">
           <Link
