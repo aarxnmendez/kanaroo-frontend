@@ -3,6 +3,7 @@ import Benefits from "@/components/landing/Benefits";
 import Features from "@/components/landing/Features";
 import HowItWorks from "@/components/landing/HowItWorks";
 import Pricing from "@/components/landing/Pricing";
+import FAQ from "@/components/landing/FAQ";
 
 function HomePage() {
   return (
@@ -12,6 +13,7 @@ function HomePage() {
       <Features />
       <HowItWorks />
       <Pricing />
+      <FAQ />
     </>
   );
 }
