@@ -1,6 +1,7 @@
 import Hero from "@/components/landing/Hero";
 import Benefits from "@/components/landing/Benefits";
 import Features from "@/components/landing/Features";
+import HowItWorks from "@/components/landing/HowItWorks";
 
 function HomePage() {
   return (
@@ -8,6 +9,7 @@ function HomePage() {
       <Hero />
       <Benefits />
       <Features />
+      <HowItWorks />
     </>
   );
 }
