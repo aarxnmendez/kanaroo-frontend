@@ -4,6 +4,7 @@ import Features from "@/components/landing/Features";
 import HowItWorks from "@/components/landing/HowItWorks";
 import Pricing from "@/components/landing/Pricing";
 import FAQ from "@/components/landing/FAQ";
+import FinalCTA from "@/components/landing/FinalCTA";
 
 function HomePage() {
   return (
@@ -14,6 +15,7 @@ function HomePage() {
       <HowItWorks />
       <Pricing />
       <FAQ />
+      <FinalCTA />
     </>
   );
 }
