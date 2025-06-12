@@ -177,7 +177,7 @@ export function NavigationDesktop() {
                 "text-base 2xl:text-sm font-semibold h-full flex items-center"
               )}
             >
-              <Link to="/#hero">La Esencia Kanaroo</Link>
+              <Link to="/#benefits">La Esencia Kanaroo</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="h-full flex items-center">

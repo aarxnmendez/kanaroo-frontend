@@ -233,7 +233,7 @@ export function NavigationMobile() {
                   </li>
                   <ListItem
                     title="La Esencia Kanaroo"
-                    to="/#hero"
+                    to="/#benefits"
                     iconSpan={
                       <span className="bg-accent flex group-hover/navlink:bg-primary h-12 items-center justify-center rounded-full w-12">
                         <Info className="group-hover/navlink:text-primary-foreground !h-6 !w-6" />
