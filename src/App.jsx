@@ -10,7 +10,13 @@ import TeamPage from "@/pages/Landing/TeamPage.jsx";
 import RegisterPage from "@/pages/Auth/RegisterPage.jsx";
 import LoginPage from "@/pages/Auth/LoginPage.jsx";
 import ForgotPasswordPage from "@/pages/Auth/ForgotPasswordPage.jsx";
-import ResetPasswordPage from "@/pages/Auth/ResetPasswordPage.jsx"; // Importar ResetPasswordPage
+import ResetPasswordPage from "@/pages/Auth/ResetPasswordPage.jsx";
+import NotFoundPage from "@/pages/Error/NotFoundPage.jsx";
+import InternalServerErrorPage from "@/pages/Error/InternalServerErrorPage.jsx";
+import ServiceUnavailablePage from "@/pages/Error/ServiceUnavailablePage.jsx";
+import UnauthorizedPage from "@/pages/Error/UnauthorizedPage.jsx";
+import ForbiddenPage from "@/pages/Error/ForbiddenPage.jsx";
+import GenericErrorPage from "@/pages/Error/GenericErrorPage.jsx";
 
 export function App() {
   const initializeTheme = useThemeStore((state) => state.initializeTheme);
@@ -60,10 +66,34 @@ export const routesConfig = [
             element: <ForgotPasswordPage />,
           },
           {
-            path: "password-reset/:token", // Ruta para resetear contraseña con token
+            path: "password-reset/:token",
             element: <ResetPasswordPage />,
           },
         ],
+      },
+      {
+        path: "error-401",
+        element: <UnauthorizedPage />,
+      },
+      {
+        path: "error-403",
+        element: <ForbiddenPage />,
+      },
+      {
+        path: "error-500",
+        element: <InternalServerErrorPage />,
+      },
+      {
+        path: "error-503",
+        element: <ServiceUnavailablePage />,
+      },
+      {
+        path: "error-generic",
+        element: <GenericErrorPage />,
+      },
+      {
+        path: "*",
+        element: <NotFoundPage />,
       },
     ],
   },
