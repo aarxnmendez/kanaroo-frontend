@@ -94,7 +94,7 @@ const resourceItems = [
   },
   {
     title: "Contacto",
-    href: "/contact",
+    href: "mailto:support@kanaroo.com",
     description:
       "Ponte en contacto con nuestro equipo para soporte o consultas.",
     iconSpan: (
@@ -116,23 +116,43 @@ const resourceItems = [
 ];
 
 const ListItem = ({ title, children, to, iconSpan, className }) => {
+  const isExternalOrMailto =
+    to.startsWith("https://") ||
+    to.startsWith("http://") ||
+    to.startsWith("mailto:");
+  const isHttp = to.startsWith("https://") || to.startsWith("http://");
+  const commonClasses =
+    "flex flex-row focus:bg-accent focus:text-accent-foreground gap-4 group/navlink h-full hover:bg-accent hover:text-accent-foreground items-center rounded-xl w-full p-4";
+
   return (
     <li className={cn("h-full", className)}>
       <NavigationMenuLink asChild>
-        <Link
-          to={to}
-          className={cn(
-            "flex flex-row focus:bg-accent focus:text-accent-foreground gap-2 group/navlink h-full hover:bg-accent hover:text-accent-foreground items-center rounded-xl w-full"
-          )}
-        >
-          {iconSpan}
-          <div className="flex-1">
-            <div className="text-base font-semibold">{title}</div>
-            <p className="text-sm font-semibold text-muted-foreground/70">
-              {children}
-            </p>
-          </div>
-        </Link>
+        {isExternalOrMailto ? (
+          <a
+            href={to}
+            className={cn(commonClasses)}
+            target={isHttp ? "_blank" : undefined}
+            rel={isHttp ? "noopener noreferrer" : undefined}
+          >
+            {iconSpan}
+            <div className="flex-1">
+              <div className="text-base font-semibold">{title}</div>
+              <p className="text-sm font-semibold text-muted-foreground/70">
+                {children}
+              </p>
+            </div>
+          </a>
+        ) : (
+          <Link to={to} className={cn(commonClasses)}>
+            {iconSpan}
+            <div className="flex-1">
+              <div className="text-base font-semibold">{title}</div>
+              <p className="text-sm font-semibold text-muted-foreground/70">
+                {children}
+              </p>
+            </div>
+          </Link>
+        )}
       </NavigationMenuLink>
     </li>
   );
