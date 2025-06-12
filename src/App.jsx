@@ -9,6 +9,7 @@ import DocumentationPage from "@/pages/Landing/DocumentationPage.jsx";
 import TeamPage from "@/pages/Landing/TeamPage.jsx";
 import RegisterPage from "@/pages/Auth/RegisterPage.jsx";
 import LoginPage from "@/pages/Auth/LoginPage.jsx";
+import ForgotPasswordPage from "@/pages/Auth/ForgotPasswordPage.jsx";
 
 export function App() {
   const initializeTheme = useThemeStore((state) => state.initializeTheme);
@@ -52,6 +53,10 @@ export const routesConfig = [
           {
             path: "login",
             element: <LoginPage />,
+          },
+          {
+            path: "forgot-password",
+            element: <ForgotPasswordPage />,
           },
         ],
       },
