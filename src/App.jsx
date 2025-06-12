@@ -13,7 +13,6 @@ import RegisterPage from "@/pages/Auth/RegisterPage.jsx";
 import LoginPage from "@/pages/Auth/LoginPage.jsx";
 import ForgotPasswordPage from "@/pages/Auth/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "@/pages/Auth/ResetPasswordPage.jsx";
-import DashboardPage from "@/pages/DashboardPage.jsx";
 import NotFoundPage from "@/pages/Error/NotFoundPage.jsx";
 import InternalServerErrorPage from "@/pages/Error/InternalServerErrorPage.jsx";
 import ServiceUnavailablePage from "@/pages/Error/ServiceUnavailablePage.jsx";
@@ -81,10 +80,6 @@ const routesConfig = [
             element: <ResetPasswordPage />,
           },
         ],
-      },
-      {
-        path: "dashboard",
-        element: <DashboardPage />,
       },
       {
         path: "error-401",
