@@ -4,7 +4,10 @@ import { Link } from "react-router-dom";
 
 function FinalCTA() {
   return (
-    <section className="px-4 md:px-16 lg:px-10 2xl:px-16 bg-background py-16 md:py-20 lg:py-24">
+    <section
+      id="cta"
+      className="px-4 md:px-16 lg:px-10 2xl:px-16 bg-background py-16 md:py-20 lg:py-24"
+    >
       <div className="max-w-7xl mx-auto bg-card rounded-[60px] p-12 sm:p-16 md:p-24 lg:p-32 shadow-xl text-center min-h-[500px] md:min-h-[600px] lg:min-h-[700px] flex flex-col justify-center items-center">
         <h2 className="text-4xl sm:text-5xl lg:text-6xl font-extrabold text-foreground mb-10 md:mb-12 tracking-tight">
           ¿Listo para Organizar tu Vida y Proyectos?

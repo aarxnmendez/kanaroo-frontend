@@ -28,7 +28,7 @@ import { Button } from "@/components/ui/button";
 const productFeatures = [
   {
     title: "Tareas",
-    href: "/features/task-management",
+    href: "/#features-tasks",
     description:
       "Organiza tus tareas en un único lugar, de simples a complejas.",
     iconSpan: (
@@ -39,7 +39,7 @@ const productFeatures = [
   },
   {
     title: "Proyectos",
-    href: "/features/project-management",
+    href: "/#features-projects",
     description:
       "Gestiona tus proyectos de forma visual, flexible e intuitiva.",
     iconSpan: (
@@ -50,7 +50,7 @@ const productFeatures = [
   },
   {
     title: "Colaboración",
-    href: "/features/team-collaboration",
+    href: "/#features-collaboration",
     description: "Conecta, comparte y avanza con tu equipo hacia objetivos.",
     iconSpan: (
       <span className="bg-accent flex group-hover/navlink:bg-primary h-8 items-center justify-center rounded-full w-8">
@@ -60,7 +60,7 @@ const productFeatures = [
   },
   {
     title: "Gestión del Tiempo",
-    href: "/features/time-management",
+    href: "/#features-time-management",
     description: "Optimiza tu día y sigue el progreso de tus actividades.",
     iconSpan: (
       <span className="bg-accent flex group-hover/navlink:bg-primary h-8 items-center justify-center rounded-full w-8">
@@ -73,7 +73,7 @@ const productFeatures = [
 const resourceItems = [
   {
     title: "FAQs",
-    href: "/faqs",
+    href: "/#faq",
     description: "Encuentra respuestas rápidas a las preguntas más comunes.",
     iconSpan: (
       <span className="bg-accent flex group-hover/navlink:bg-primary h-8 items-center justify-center rounded-full w-8">
@@ -157,7 +157,7 @@ export function NavigationDesktop() {
                 "text-base 2xl:text-sm font-semibold h-full flex items-center"
               )}
             >
-              <Link to="/kanaroo-essence">La Esencia Kanaroo</Link>
+              <Link to="/#hero">La Esencia Kanaroo</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
           <NavigationMenuItem className="h-full flex items-center">
@@ -210,7 +210,7 @@ export function NavigationDesktop() {
                 "text-base 2xl:text-sm font-semibold h-full flex items-center"
               )}
             >
-              <Link to="/pricing">Precios</Link>
+              <Link to="/#pricing">Precios</Link>
             </NavigationMenuLink>
           </NavigationMenuItem>
         </NavigationMenuList>

@@ -22,7 +22,10 @@ function Benefits() {
   ];
 
   return (
-    <section className="bg-background px-4 md:px-16 lg:px-10 2xl:px-16">
+    <section
+      id="benefits"
+      className="bg-background px-4 md:px-16 lg:px-10 2xl:px-16"
+    >
       <div className="max-w-7xl mx-auto py-16 md:py-20 lg:py-32">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 md:mb-6 tracking-tight">

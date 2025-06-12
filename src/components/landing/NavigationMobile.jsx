@@ -28,7 +28,7 @@ import {
 const productFeatures = [
   {
     title: "Tareas",
-    href: "/features/task-management",
+    href: "/#features-tasks",
     description:
       "Organiza tus tareas en un único lugar, de simples a complejas.",
     iconSpan: (
@@ -39,7 +39,7 @@ const productFeatures = [
   },
   {
     title: "Proyectos",
-    href: "/features/project-management",
+    href: "/#features-projects",
     description:
       "Gestiona tus proyectos de forma visual, flexible e intuitiva.",
     iconSpan: (
@@ -50,7 +50,7 @@ const productFeatures = [
   },
   {
     title: "Colaboración",
-    href: "/features/team-collaboration",
+    href: "/#features-collaboration",
     description: "Conecta, comparte y avanza con tu equipo hacia objetivos.",
     iconSpan: (
       <span className="bg-accent flex group-hover/navlink:bg-primary h-12 items-center justify-center rounded-full w-12">
@@ -60,7 +60,7 @@ const productFeatures = [
   },
   {
     title: "Gestión del Tiempo",
-    href: "/features/time-management",
+    href: "/#features-time-management",
     description: "Optimiza tu día y sigue el progreso de tus actividades.",
     iconSpan: (
       <span className="bg-accent flex group-hover/navlink:bg-primary h-12 items-center justify-center rounded-full w-12">
@@ -73,7 +73,7 @@ const productFeatures = [
 const resourceItems = [
   {
     title: "FAQs",
-    href: "/faqs",
+    href: "/#faq",
     description: "Encuentra respuestas rápidas a las preguntas más comunes.",
     iconSpan: (
       <span className="bg-accent flex group-hover/navlink:bg-primary h-12 items-center justify-center rounded-full w-12">
@@ -213,7 +213,7 @@ export function NavigationMobile() {
                   </li>
                   <ListItem
                     title="La Esencia Kanaroo"
-                    to="/kanaroo-essence"
+                    to="/#hero"
                     iconSpan={
                       <span className="bg-accent flex group-hover/navlink:bg-primary h-12 items-center justify-center rounded-full w-12">
                         <Info className="group-hover/navlink:text-primary-foreground !h-6 !w-6" />
@@ -271,7 +271,7 @@ export function NavigationMobile() {
                   </li>
                   <ListItem
                     title="Precios"
-                    to="/pricing"
+                    to="/#pricing"
                     iconSpan={
                       <span className="bg-accent flex group-hover/navlink:bg-primary h-12 items-center justify-center rounded-full w-12">
                         <Tickets className="group-hover/navlink:text-primary-foreground !h-6 !w-6" />

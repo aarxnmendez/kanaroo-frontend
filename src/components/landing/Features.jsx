@@ -1,6 +1,6 @@
 function Features() {
   return (
-    <section className="px-4 md:px-16 lg:px-10 2xl:px-16">
+    <section id="features" className="px-4 md:px-16 lg:px-10 2xl:px-16">
       <div className="max-w-7xl w-full lg:w-4/5 mx-auto py-16 md:py-20 lg:py-32">
         <div className="text-center mb-12 md:mb-16">
           <h2 className="text-3xl sm:text-4xl lg:text-5xl font-bold text-foreground mb-4 md:mb-6 tracking-tight">
@@ -12,7 +12,10 @@ function Features() {
           </p>
         </div>
         <div className="grid grid-cols-1 xl:grid-cols-4 gap-4 md:gap-6 xl:grid-rows-[auto_auto_1fr] xl:items-stretch">
-          <div className="xl:col-span-3 group bg-card border border-muted/70 rounded-2xl p-6 md:p-8 xl:p-10 shadow-sm dark:shadow-white/10 hover:shadow-lg hover:dark:shadow-white/20 transition-all duration-300 hover:-translate-y-1 min-h-fit @container">
+          <div
+            id="features-tasks"
+            className="xl:col-span-3 group bg-card border border-muted/70 rounded-2xl p-6 md:p-8 xl:p-10 shadow-sm dark:shadow-white/10 hover:shadow-lg hover:dark:shadow-white/20 transition-all duration-300 hover:-translate-y-1 min-h-fit @container"
+          >
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-start md:gap-8 h-full">
               <div className="flex-1 min-w-0 overflow-hidden">
                 <h3 className="text-xl xl:text-2xl font-bold text-card-foreground mb-2 md:mb-3 xl:mb-4 tracking-tight">
@@ -61,7 +64,10 @@ function Features() {
               </div>
             </div>
           </div>
-          <div className="xl:col-span-3 group bg-card border border-muted/70 rounded-2xl p-6 md:p-8 xl:p-10 shadow-sm dark:shadow-white/10 hover:shadow-lg hover:dark:shadow-white/20 transition-all duration-300 hover:-translate-y-1 min-h-fit @container">
+          <div
+            id="features-projects"
+            className="xl:col-span-3 group bg-card border border-muted/70 rounded-2xl p-6 md:p-8 xl:p-10 shadow-sm dark:shadow-white/10 hover:shadow-lg hover:dark:shadow-white/20 transition-all duration-300 hover:-translate-y-1 min-h-fit @container"
+          >
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-start md:gap-8 h-full">
               <div className="flex-1 min-w-0 overflow-hidden">
                 <h3 className="text-xl xl:text-2xl font-bold text-card-foreground mb-2 md:mb-3 xl:mb-4 tracking-tight">
@@ -78,7 +84,10 @@ function Features() {
               </div>
             </div>
           </div>
-          <div className="xl:col-span-3 group bg-card border border-muted/70 rounded-2xl p-6 md:p-8 xl:p-10 shadow-sm dark:shadow-white/10 hover:shadow-lg hover:dark:shadow-white/20 transition-all duration-300 hover:-translate-y-1 xl:h-auto @container">
+          <div
+            id="features-collaboration"
+            className="xl:col-span-3 group bg-card border border-muted/70 rounded-2xl p-6 md:p-8 xl:p-10 shadow-sm dark:shadow-white/10 hover:shadow-lg hover:dark:shadow-white/20 transition-all duration-300 hover:-translate-y-1 xl:h-auto @container"
+          >
             <div className="flex flex-col items-start gap-6 md:flex-row md:items-start md:gap-8 h-full">
               <div className="flex-1 min-w-0 overflow-hidden">
                 <h3 className="text-xl xl:text-2xl font-bold text-card-foreground mb-2 md:mb-3 xl:mb-4 tracking-tight">
@@ -95,7 +104,10 @@ function Features() {
               </div>
             </div>
           </div>
-          <div className="group bg-card border border-muted/70 rounded-2xl p-6 md:p-8 xl:p-10 shadow-sm dark:shadow-white/10 hover:shadow-lg hover:dark:shadow-white/20 transition-all duration-300 hover:-translate-y-1 xl:h-auto @container">
+          <div
+            id="features-time-management"
+            className="group bg-card border border-muted/70 rounded-2xl p-6 md:p-8 xl:p-10 shadow-sm dark:shadow-white/10 hover:shadow-lg hover:dark:shadow-white/20 transition-all duration-300 hover:-translate-y-1 xl:h-auto @container"
+          >
             <div className="flex flex-col items-start gap-4 md:flex-row md:items-start md:gap-6 xl:flex-col h-full">
               <div className="flex-1 min-w-0 overflow-hidden">
                 <h3 className="text-xl xl:text-2xl font-bold text-card-foreground mb-2 md:mb-3 tracking-tight">

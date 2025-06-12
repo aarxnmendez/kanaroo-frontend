@@ -5,7 +5,10 @@ import { ArrowRight } from "lucide-react";
 
 function Hero() {
   return (
-    <section className="bg-background text-foreground px-4 md:px-16 lg:px-10 2xl:px-16">
+    <section
+      id="hero"
+      className="bg-background text-foreground px-4 md:px-16 lg:px-10 2xl:px-16"
+    >
       <div className="max-w-7xl mx-auto pt-30 md:pt-35 lg:pt-48 2xl:pt-56 pb-16 md:pb-24 lg:pb-32">
         <div className="grid grid-cols-1 gap-y-12 md:gap-y-16 items-center">
           <div className="flex flex-col items-center text-center space-y-6 md:space-y-8">
