@@ -1,11 +1,16 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { loginSchema, validateField, validateForm } from "@/lib/validations";
+import { useAuth } from "@/hooks/useAuth";
 
 function LoginPage() {
+  const navigate = useNavigate();
+  const { login, isLoading, error, clearError } = useAuth();
+
   const [formData, setFormData] = useState({
     email: "",
     password: "",
@@ -22,6 +27,10 @@ function LoginPage() {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     handleValidation(name, value);
+
+    if (error) {
+      clearError();
+    }
   };
 
   const handleBlur = (e) => {
@@ -29,13 +38,18 @@ function LoginPage() {
     handleValidation(name, value);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { isValid, errors: formErrors } = validateForm(formData, loginSchema);
     setErrors(formErrors);
 
     if (isValid) {
-      console.log("Formulario de login válido, enviando datos:", formData);
+      try {
+        await login(formData);
+        navigate("/dashboard");
+      } catch (err) {
+        console.error("Error en login:", err);
+      }
     }
   };
 
@@ -51,6 +65,13 @@ function LoginPage() {
               Bienvenido de nuevo. Ingresa tus credenciales.
             </p>
           </div>
+
+          {/* Mostrar error de autenticación general */}
+          {error && (
+            <div className="mb-6 bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-md">
+              <span className="block text-sm">{error}</span>
+            </div>
+          )}
 
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
@@ -68,11 +89,13 @@ function LoginPage() {
                 value={formData.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={isLoading}
               />
               {errors.email && (
                 <p className="text-sm text-destructive mt-1">{errors.email}</p>
               )}
             </div>
+
             <div>
               <Label
                 htmlFor="password"
@@ -88,6 +111,7 @@ function LoginPage() {
                 value={formData.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={isLoading}
               />
               {errors.password && (
                 <p className="text-sm text-destructive mt-1">
@@ -95,9 +119,14 @@ function LoginPage() {
                 </p>
               )}
             </div>
+
             <div>
-              <Button type="submit" className="w-full cursor-pointer">
-                Iniciar Sesión
+              <Button
+                type="submit"
+                className="w-full cursor-pointer"
+                disabled={isLoading}
+              >
+                {isLoading ? "Iniciando sesión..." : "Iniciar Sesión"}
               </Button>
             </div>
           </form>

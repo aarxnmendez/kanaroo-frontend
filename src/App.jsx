@@ -1,6 +1,8 @@
 import { useEffect } from "react";
 import { Outlet } from "react-router-dom";
 import { useThemeStore } from "@/store/theme.store";
+import { initializeFetchClient } from "@/services/apiClient.js";
+import { useAuthStore } from "@/store/authStore.js";
 
 import LandingLayout from "@/layouts/LandingLayout.jsx";
 import AuthLayout from "@/layouts/AuthLayout.jsx";
@@ -11,6 +13,7 @@ import RegisterPage from "@/pages/Auth/RegisterPage.jsx";
 import LoginPage from "@/pages/Auth/LoginPage.jsx";
 import ForgotPasswordPage from "@/pages/Auth/ForgotPasswordPage.jsx";
 import ResetPasswordPage from "@/pages/Auth/ResetPasswordPage.jsx";
+import DashboardPage from "@/pages/DashboardPage.jsx";
 import NotFoundPage from "@/pages/Error/NotFoundPage.jsx";
 import InternalServerErrorPage from "@/pages/Error/InternalServerErrorPage.jsx";
 import ServiceUnavailablePage from "@/pages/Error/ServiceUnavailablePage.jsx";
@@ -20,15 +23,23 @@ import GenericErrorPage from "@/pages/Error/GenericErrorPage.jsx";
 
 export function App() {
   const initializeTheme = useThemeStore((state) => state.initializeTheme);
-
+  const initialize = useAuthStore((state) => state.initialize);
   useEffect(() => {
+    // Inicializar tema
     initializeTheme();
-  }, [initializeTheme]);
+
+    // Inicializar cliente API con authStore
+    const authStoreInstance = useAuthStore.getState();
+    initializeFetchClient(null, authStoreInstance);
+
+    // Inicializar estado de autenticación desde localStorage
+    initialize();
+  }, [initializeTheme, initialize]);
 
   return <Outlet />;
 }
 
-export const routesConfig = [
+const routesConfig = [
   {
     path: "/",
     element: <App />,
@@ -72,6 +83,10 @@ export const routesConfig = [
         ],
       },
       {
+        path: "dashboard",
+        element: <DashboardPage />,
+      },
+      {
         path: "error-401",
         element: <UnauthorizedPage />,
       },
@@ -98,3 +113,5 @@ export const routesConfig = [
     ],
   },
 ];
+
+export { routesConfig };
