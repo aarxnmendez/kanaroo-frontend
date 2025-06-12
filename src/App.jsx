@@ -3,9 +3,11 @@ import { Outlet } from "react-router-dom";
 import { useThemeStore } from "@/store/theme.store";
 
 import LandingLayout from "@/layouts/LandingLayout.jsx";
+import AuthLayout from "@/layouts/AuthLayout.jsx";
 import HomePage from "@/pages/Landing/HomePage.jsx";
 import DocumentationPage from "@/pages/Landing/DocumentationPage.jsx";
-import TeamPage from "@/pages/Landing/TeamPage.jsx"; // Importar TeamPage
+import TeamPage from "@/pages/Landing/TeamPage.jsx";
+import RegisterPage from "@/pages/Auth/RegisterPage.jsx";
 
 export function App() {
   const initializeTheme = useThemeStore((state) => state.initializeTheme);
@@ -36,6 +38,15 @@ export const routesConfig = [
           {
             path: "team",
             element: <TeamPage />,
+          },
+        ],
+      },
+      {
+        element: <AuthLayout />,
+        children: [
+          {
+            path: "signup",
+            element: <RegisterPage />,
           },
         ],
       },
