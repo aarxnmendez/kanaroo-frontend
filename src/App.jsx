@@ -8,6 +8,7 @@ import HomePage from "@/pages/Landing/HomePage.jsx";
 import DocumentationPage from "@/pages/Landing/DocumentationPage.jsx";
 import TeamPage from "@/pages/Landing/TeamPage.jsx";
 import RegisterPage from "@/pages/Auth/RegisterPage.jsx";
+import LoginPage from "@/pages/Auth/LoginPage.jsx";
 
 export function App() {
   const initializeTheme = useThemeStore((state) => state.initializeTheme);
@@ -47,6 +48,10 @@ export const routesConfig = [
           {
             path: "signup",
             element: <RegisterPage />,
+          },
+          {
+            path: "login",
+            element: <LoginPage />,
           },
         ],
       },

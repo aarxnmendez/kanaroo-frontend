@@ -25,6 +25,19 @@ export const registrationSchema = {
   },
 };
 
+export const loginSchema = {
+  email: {
+    required: { value: true, message: "El correo electrónico es obligatorio." },
+    pattern: {
+      value: /^[\w.-]+@([\w-]+\.)+[\w-]{2,4}$/,
+      message: "Por favor, introduce un correo electrónico válido.",
+    },
+  },
+  password: {
+    required: { value: true, message: "La contraseña es obligatoria." },
+  },
+};
+
 export const validateField = (name, value, passwordValue, schema) => {
   const rules = schema[name];
   let error = "";
