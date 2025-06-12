@@ -10,6 +10,7 @@ import TeamPage from "@/pages/Landing/TeamPage.jsx";
 import RegisterPage from "@/pages/Auth/RegisterPage.jsx";
 import LoginPage from "@/pages/Auth/LoginPage.jsx";
 import ForgotPasswordPage from "@/pages/Auth/ForgotPasswordPage.jsx";
+import ResetPasswordPage from "@/pages/Auth/ResetPasswordPage.jsx"; // Importar ResetPasswordPage
 
 export function App() {
   const initializeTheme = useThemeStore((state) => state.initializeTheme);
@@ -57,6 +58,10 @@ export const routesConfig = [
           {
             path: "forgot-password",
             element: <ForgotPasswordPage />,
+          },
+          {
+            path: "password-reset/:token", // Ruta para resetear contraseña con token
+            element: <ResetPasswordPage />,
           },
         ],
       },

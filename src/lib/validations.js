@@ -48,6 +48,22 @@ export const forgotPasswordSchema = {
   },
 };
 
+export const resetPasswordSchema = {
+  password: {
+    required: { value: true, message: "La nueva contraseña es obligatoria." },
+    minLength: {
+      value: 8,
+      message: "La contraseña debe tener al menos 8 caracteres.",
+    },
+  },
+  confirmPassword: {
+    required: {
+      value: true,
+      message: "Por favor, confirma tu nueva contraseña.",
+    },
+  },
+};
+
 export const validateField = (name, value, passwordValue, schema) => {
   const rules = schema[name];
   let error = "";
