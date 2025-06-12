@@ -1,119 +1,138 @@
-import { useState, useEffect } from "react";
+import { useEffect, useState } from "react";
+import { Link, useNavigate, useParams, useLocation } from "react-router-dom";
+useLocation;
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { Link, useParams, useSearchParams } from "react-router-dom";
-import {
-  resetPasswordSchema,
-  validateField,
-  validateForm,
-} from "@/lib/validations";
+import { authService } from "@/services/authService";
+import { useAuth } from "@/hooks/useAuth";
 
 function ResetPasswordPage() {
-  const { token: urlToken } = useParams();
-  const [searchParams] = useSearchParams();
-  const emailFromUrl = searchParams.get("email");
+  const { token } = useParams();
+  const location = useLocation();
+  const navigate = useNavigate();
+  const { isLoading, error, clearError, authError } = useAuth();
 
   const [formData, setFormData] = useState({
+    email: "",
     password: "",
     confirmPassword: "",
+    token: token,
   });
 
   const [errors, setErrors] = useState({});
-  const [isTokenValid, setIsTokenValid] = useState(false);
-  const [isPasswordReset, setIsPasswordReset] = useState(false);
-  const [statusMessage, setStatusMessage] = useState("");
+  const [message, setMessage] = useState("");
 
   useEffect(() => {
-    if (urlToken && emailFromUrl) {
-      setIsTokenValid(true);
-      setStatusMessage("");
-    } else {
-      setIsTokenValid(false);
-      setStatusMessage(
-        "Token o email no proporcionado. El enlace puede ser incorrecto."
-      );
+    const queryParams = new URLSearchParams(location.search);
+    const emailFromQuery = queryParams.get("email");
+    if (emailFromQuery) {
+      setFormData((prev) => ({ ...prev, email: emailFromQuery }));
     }
-  }, [urlToken, emailFromUrl]);
-
-  const handleValidation = (name, value) => {
-    const error = validateField(
-      name,
-      value,
-      formData.password,
-      resetPasswordSchema
-    );
-    setErrors((prev) => ({ ...prev, [name]: error }));
-  };
+    return () => clearError();
+  }, [token, location.search, clearError]);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
-    handleValidation(name, value);
+
+    if (errors[name]) {
+      setErrors((prev) => ({ ...prev, [name]: "" }));
+    }
+    if (authError) clearError();
+
+    if (message) setMessage("");
+
+    if (name === "confirmPassword" || name === "password") {
+      const password = name === "password" ? value : formData.password;
+      const confirmPassword =
+        name === "confirmPassword" ? value : formData.confirmPassword;
+
+      if (confirmPassword && password !== confirmPassword) {
+        setErrors((prev) => ({
+          ...prev,
+          confirmPassword: "Las contraseñas no coinciden",
+        }));
+      } else {
+        setErrors((prev) => ({ ...prev, confirmPassword: "" }));
+      }
+    }
+  };
+  const validateForm = () => {
+    const newErrors = {};
+
+    if (!formData.email) {
+      newErrors.email = "El email es requerido";
+    } else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(formData.email)) {
+      newErrors.email = "Ingresa un email válido";
+    }
+
+    if (!formData.password) {
+      newErrors.password = "La contraseña es requerida";
+    } else if (formData.password.length < 8) {
+      newErrors.password = "La contraseña debe tener al menos 8 caracteres";
+    }
+
+    if (!formData.confirmPassword) {
+      newErrors.confirmPassword = "Confirma tu contraseña";
+    } else if (formData.password !== formData.confirmPassword) {
+      newErrors.confirmPassword = "Las contraseñas no coinciden";
+    }
+
+    setErrors(newErrors);
+    return Object.keys(newErrors).length === 0;
   };
 
-  const handleBlur = (e) => {
-    const { name, value } = e.target;
-    handleValidation(name, value);
-  };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
-    if (!isTokenValid) return;
 
-    const { isValid, errors: formErrors } = validateForm(
-      formData,
-      resetPasswordSchema
-    );
-    setErrors(formErrors);
+    if (!validateForm()) return;
+    if (!token) {
+      setErrors((prev) => ({
+        ...prev,
+        general: "Token de recuperación inválido.",
+      }));
+      return;
+    }
 
-    if (isValid) {
-      console.log(
-        "Formulario de reseteo válido, actualizando contraseña para:",
-        emailFromUrl,
-        "con token:",
-        urlToken,
-        "Nueva contraseña:",
-        formData.password
+    setErrors({});
+    setMessage("");
+
+    try {
+      const resetData = {
+        email: formData.email,
+        password: formData.password,
+        password_confirmation: formData.confirmPassword,
+        token: token,
+      };
+
+      await authService.resetPassword(resetData);
+
+      setMessage(
+        "Contraseña restablecida exitosamente. Redirigiendo al dashboard..."
       );
-      setIsPasswordReset(true);
+
+      setTimeout(() => {
+        navigate("/dashboard");
+      }, 2000);
+    } catch (errorCapturado) {
+      console.error(
+        "Error capturado durante el intento de restablecer contraseña:",
+        errorCapturado
+      );
+
+      if (!authError) {
+        setErrors((prev) => ({
+          ...prev,
+          general:
+            "Ocurrió un error al procesar tu solicitud. Por favor, inténtalo de nuevo.",
+        }));
+      }
     }
   };
 
-  if (!isTokenValid && !statusMessage) {
-    return (
-      <div className="flex flex-col flex-grow min-h-[100dvh] items-center justify-center p-4 text-foreground">
-        Verificando enlace...
-      </div>
-    );
-  }
-
-  if (!isTokenValid && statusMessage) {
-    return (
-      <section className="flex flex-col flex-grow min-h-[100dvh] items-center justify-center px-4 md:px-16 lg:px-10 2xl:px-16 bg-gradient-to-bl from-primary via-primary-dark to-background">
-        <div className="w-full max-w-7xl mx-auto py-8 flex flex-col items-center">
-          <div className="bg-background text-card-foreground p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md text-center">
-            <h1 className="text-2xl font-bold text-destructive mb-4">
-              Enlace Inválido
-            </h1>
-            <p className="text-muted-foreground mb-6">
-              {statusMessage ||
-                "El enlace para restablecer la contraseña es inválido o ha expirado."}
-            </p>
-            <Link
-              to="/login"
-              className="font-medium text-primary hover:underline"
-            >
-              Volver a Iniciar Sesión
-            </Link>
-          </div>
-        </div>
-      </section>
-    );
-  }
-
   return (
-    <section className="flex flex-col flex-grow min-h-[100dvh] items-center justify-center px-4 md:px-16 lg:px-10 2xl:px-16 bg-gradient-to-bl from-primary via-primary-dark to-background">
+    <section className="flex flex-col flex-grow min-h-[100dvh] items-center justify-center px-4 md:px-16 lg:px-10 2xl:px-16 bg-gradient-to-tl from-primary via-primary-dark to-background">
       <div className="w-full max-w-7xl mx-auto pt-24 lg:pt-32 pb-24 lg:pb-32 flex flex-col items-center">
         <div className="bg-background text-card-foreground p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md">
           <div className="text-center mb-8">
@@ -121,87 +140,128 @@ function ResetPasswordPage() {
               Restablecer Contraseña
             </h1>
             <p className="text-muted-foreground mt-2">
-              Crea una nueva contraseña para tu cuenta asociada a{" "}
-              <strong>{emailFromUrl}</strong>.
+              Ingresa tu nueva contraseña para restablecer el acceso a tu
+              cuenta.
             </p>
           </div>
 
-          {isPasswordReset ? (
-            <div className="text-center">
-              <p className="text-foreground mb-4">
-                ¡Tu contraseña ha sido restablecida con éxito!
-              </p>
-              <Link
-                to="/login"
-                className="font-medium text-primary hover:underline"
-              >
-                Iniciar Sesión
-              </Link>
+          {message && (
+            <div className="mb-6 bg-success-50 border border-success-200 text-success px-4 py-3 rounded-md">
+              <span className="block text-sm">{message}</span>
             </div>
-          ) : (
-            <>
-              <form className="space-y-6" onSubmit={handleSubmit}>
-                <div>
-                  <Label
-                    htmlFor="password"
-                    className="block text-sm font-medium text-foreground mb-1"
-                  >
-                    Nueva Contraseña
-                  </Label>
-                  <Input
-                    type="password"
-                    name="password"
-                    id="password"
-                    placeholder="********"
-                    value={formData.password}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.password && (
-                    <p className="text-sm text-destructive mt-1">
-                      {errors.password}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <Label
-                    htmlFor="confirmPassword"
-                    className="block text-sm font-medium text-foreground mb-1"
-                  >
-                    Confirmar Nueva Contraseña
-                  </Label>
-                  <Input
-                    type="password"
-                    name="confirmPassword"
-                    id="confirmPassword"
-                    placeholder="********"
-                    value={formData.confirmPassword}
-                    onChange={handleChange}
-                    onBlur={handleBlur}
-                  />
-                  {errors.confirmPassword && (
-                    <p className="text-sm text-destructive mt-1">
-                      {errors.confirmPassword}
-                    </p>
-                  )}
-                </div>
-                <div>
-                  <Button type="submit" className="w-full cursor-pointer">
-                    Restablecer Contraseña
-                  </Button>
-                </div>
-              </form>
-              <p className="mt-8 text-center text-sm text-muted-foreground">
-                ¿Recordaste tu contraseña?{" "}
-                <Link
-                  to="/login"
-                  className="font-medium text-primary hover:underline"
-                >
-                  Iniciar Sesión
-                </Link>
-              </p>
-            </>
           )}
+
+          {error && (
+            <div className="mb-6 bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-md">
+              <span className="block text-sm">{error}</span>
+            </div>
+          )}
+
+          <form className="space-y-6" onSubmit={handleSubmit}>
+            <div>
+              <Label
+                htmlFor="email"
+                className="block text-sm font-medium text-foreground mb-1"
+              >
+                Correo electrónico
+              </Label>{" "}
+              <Input
+                label="Correo electrónico"
+                name="email"
+                type="email"
+                placeholder="tu@email.com"
+                value={formData.email}
+                onChange={handleChange}
+                error={errors.email}
+                disabled={isLoading || !!formData.email}
+                readOnly
+              />
+              {formData.email && (
+                <p className="mt-1 text-xs text-gray-500">
+                  Este correo electrónico se obtuvo del enlace de recuperación.
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Label
+                htmlFor="password"
+                className="block text-sm font-medium text-foreground mb-1"
+              >
+                Nueva contraseña
+              </Label>
+              <Input
+                type="password"
+                name="password"
+                id="password"
+                placeholder="********"
+                value={formData.password}
+                onChange={handleChange}
+                disabled={isLoading}
+                className={errors.password ? "border-destructive" : ""}
+              />
+              {errors.password && (
+                <p className="text-sm text-destructive mt-1">
+                  {errors.password}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Label
+                htmlFor="confirmPassword"
+                className="block text-sm font-medium text-foreground mb-1"
+              >
+                Confirmar nueva contraseña
+              </Label>
+              <Input
+                type="password"
+                name="confirmPassword"
+                id="confirmPassword"
+                placeholder="********"
+                value={formData.confirmPassword}
+                onChange={handleChange}
+                disabled={isLoading}
+                className={errors.confirmPassword ? "border-destructive" : ""}
+              />
+              {errors.confirmPassword && (
+                <p className="text-sm text-destructive mt-1">
+                  {errors.confirmPassword}
+                </p>
+              )}
+            </div>
+
+            <div>
+              <Button
+                type="submit"
+                className="w-full cursor-pointer"
+                disabled={isLoading || !token}
+              >
+                {isLoading ? "Restableciendo..." : "Restablecer contraseña"}
+              </Button>
+            </div>
+          </form>
+
+          <div className="mt-6 text-center">
+            <Link
+              to="/login"
+              className="text-sm font-medium text-foreground hover:underline"
+            >
+              ← Volver al inicio de sesión
+            </Link>
+          </div>
+
+          <hr className="my-6 border-border" />
+
+          <p className="text-center text-sm text-muted-foreground">
+            ¿No tienes una cuenta?{" "}
+            <Link
+              to="/signup"
+              className="font-medium text-primary hover:underline"
+            >
+              Regístrate
+            </Link>
+          </p>
         </div>
       </div>
     </section>
