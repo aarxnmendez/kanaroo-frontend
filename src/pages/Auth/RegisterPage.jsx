@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
@@ -8,8 +9,11 @@ import {
   validateField,
   validateForm,
 } from "@/lib/validations";
+import { useAuth } from "@/hooks/useAuth";
 
 function RegisterPage() {
+  const navigate = useNavigate();
+  const { register, isLoading, error, clearError } = useAuth();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
@@ -46,28 +50,41 @@ function RegisterPage() {
       setErrors((prev) => ({ ...prev, password: passwordError }));
     }
   };
-
   const handleChange = (e) => {
     const { name, value } = e.target;
     setFormData((prev) => ({ ...prev, [name]: value }));
     handleValidation(name, value);
+
+    if (error) {
+      clearError();
+    }
   };
 
   const handleBlur = (e) => {
     const { name, value } = e.target;
     handleValidation(name, value);
   };
-
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { isValid, errors: formErrors } = validateForm(
       formData,
       registrationSchema
     );
     setErrors(formErrors);
-
     if (isValid) {
-      console.log("Formulario válido, enviando datos:", formData);
+      try {
+        const userData = {
+          name: formData.name,
+          email: formData.email,
+          password: formData.password,
+          password_confirmation: formData.confirmPassword,
+        };
+
+        await register(userData);
+        navigate("/dashboard");
+      } catch (err) {
+        console.error("Error en registro:", err);
+      }
     }
   };
 
@@ -75,6 +92,7 @@ function RegisterPage() {
     <section className="flex flex-col flex-grow min-h-[100dvh] items-center justify-center px-4 md:px-16 lg:px-10 2xl:px-16 bg-gradient-to-br from-primary via-primary-dark to-background">
       <div className="w-full max-w-7xl mx-auto pt-24 lg:pt-32 pb-24 lg:pb-32 flex flex-col items-center">
         <div className="bg-background text-card-foreground p-8 sm:p-10 rounded-xl shadow-2xl w-full max-w-md">
+          {" "}
           <div className="text-center mb-8">
             <h1 className="text-3xl font-bold text-foreground">
               Crear una cuenta
@@ -83,7 +101,11 @@ function RegisterPage() {
               Únete a Kanaroo para empezar a organizar tu vida.
             </p>
           </div>
-
+          {error && (
+            <div className="mb-6 bg-destructive/10 border border-destructive/20 text-destructive px-4 py-3 rounded-md">
+              <span className="block text-sm">{error}</span>
+            </div>
+          )}
           <form className="space-y-6" onSubmit={handleSubmit}>
             <div>
               <Label
@@ -91,7 +113,7 @@ function RegisterPage() {
                 className="block text-sm font-medium text-foreground mb-1"
               >
                 Nombre completo
-              </Label>
+              </Label>{" "}
               <Input
                 type="text"
                 name="name"
@@ -100,6 +122,7 @@ function RegisterPage() {
                 value={formData.name}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={isLoading}
               />
               {errors.name && (
                 <p className="text-sm text-destructive mt-1">{errors.name}</p>
@@ -111,7 +134,7 @@ function RegisterPage() {
                 className="block text-sm font-medium text-foreground mb-1"
               >
                 Correo electrónico
-              </Label>
+              </Label>{" "}
               <Input
                 type="email"
                 name="email"
@@ -120,6 +143,7 @@ function RegisterPage() {
                 value={formData.email}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={isLoading}
               />
               {errors.email && (
                 <p className="text-sm text-destructive mt-1">{errors.email}</p>
@@ -131,7 +155,7 @@ function RegisterPage() {
                 className="block text-sm font-medium text-foreground mb-1"
               >
                 Contraseña
-              </Label>
+              </Label>{" "}
               <Input
                 type="password"
                 name="password"
@@ -140,6 +164,7 @@ function RegisterPage() {
                 value={formData.password}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={isLoading}
               />
               {errors.password && (
                 <p className="text-sm text-destructive mt-1">
@@ -153,7 +178,7 @@ function RegisterPage() {
                 className="block text-sm font-medium text-foreground mb-1"
               >
                 Confirmar contraseña
-              </Label>
+              </Label>{" "}
               <Input
                 type="password"
                 name="confirmPassword"
@@ -162,20 +187,24 @@ function RegisterPage() {
                 value={formData.confirmPassword}
                 onChange={handleChange}
                 onBlur={handleBlur}
+                disabled={isLoading}
               />
               {errors.confirmPassword && (
                 <p className="text-sm text-destructive mt-1">
                   {errors.confirmPassword}
                 </p>
               )}
-            </div>
+            </div>{" "}
             <div>
-              <Button type="submit" className="w-full cursor-pointer">
-                Crear cuenta
+              <Button
+                type="submit"
+                className="w-full cursor-pointer"
+                disabled={isLoading}
+              >
+                {isLoading ? "Creando cuenta..." : "Crear cuenta"}
               </Button>
             </div>
           </form>
-
           <p className="mt-8 text-center text-sm text-muted-foreground">
             ¿Ya tienes una cuenta?{" "}
             <Link
